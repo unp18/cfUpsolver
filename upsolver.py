@@ -48,8 +48,8 @@ def get_unsolved_problems_from_contests(handle):
             continue
 
         problems = response["result"]["problems"]
-        found_unsolved = False  # Ensure only one problem per contest is selected
-
+        found_unsolved = False  
+        
         for problem in problems:
             problem_id = f"{contest_id}-{problem['index']}"
             if problem_id not in solved:
@@ -59,14 +59,14 @@ def get_unsolved_problems_from_contests(handle):
                     "rating": problem.get("rating", "Unknown"),
                     "link": f"https://codeforces.com/contest/{contest_id}/problem/{problem['index']}"
                 })
-                found_unsolved = True
-                break  # Stop after selecting the first unsolved problem
-
-        # If all problems are solved in a contest, add a placeholder
-        if not found_unsolved:
+                found_unsolved = True #Condition to get only the first problem
+                break  
+                
+        #If user solved all the problems
+        if not found_unsolved: 
             unsolved_problems.append({
                 "contest_id": contest_id,
-                "name": "🎉 All problems solved!",
+                "name": "All problems solved!",
                 "rating": "N/A",
                 "link": f"https://codeforces.com/contest/{contest_id}"
             })
